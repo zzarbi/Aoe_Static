@@ -9,6 +9,24 @@
             <block type="aoestatic/beforebodyend" template="aoestatic/beforebodyend.phtml"></block>
         </reference>
         
+        <reference name="header">
+           <!-- Example of Static Place Holder -->
+           <!--  <action method="unsetChild"><param>block_name</param></action>
+            <block type="aoestatic/placeholder" name="block_name">
+                <action method="setPlaceholderBlockname"><param>block_name</param></action>
+                <action method="setPlaceholderId"><param>block_name</param></action>
+                <action method="setStaticStatus"><param>1</param></action>
+                <block type="core/text" name="placeholder_content">
+                    <action method="setText">
+                    <param><![CDATA[
+                    <div>
+                        Static Content that will not be replace automaticly
+                    </div>
+                    ]]></param></action>
+                </block>
+            </block> -->
+        </reference>
+        
 	</aoestatic_cacheable>
 
 	<!-- This layout handle will only be processed if a not cacheable controller action is detected (see configuration) -->
