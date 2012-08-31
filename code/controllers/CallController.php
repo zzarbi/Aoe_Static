@@ -26,6 +26,11 @@ class Aoe_Static_CallController extends Mage_Core_Controller_Front_Action {
 		if ($currentProductId = $this->getRequest()->getParam('currentProductId')) {
 			Mage::getSingleton('catalog/session')->setLastViewedProductId($currentProductId);
 		}
+		
+		// Set previous URL (For login redirection)
+		if(($currentUrl = $this->getRequest()->getParam('url', false)) !== false ) {
+			Mage::getSingleton('core/session')->setLastUrl($currentUrl);
+		}
 
 		$this->loadLayout();
 		$layout = $this->getLayout();

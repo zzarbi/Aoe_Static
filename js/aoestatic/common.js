@@ -8,7 +8,8 @@ $.noConflict();
 jQuery(document).ready(function($) {
 
 	var data = { 
-		getBlocks: {}
+		getBlocks: {},
+		url: document.URL
 	};
 
 	// add placeholders
