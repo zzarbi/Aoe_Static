@@ -26,10 +26,6 @@ acl cache_acl {
 Like the default function, only that cookies don't prevent caching
 */
 sub vcl_recv {
-#	if (req.http.Host != "varnish.demo.aoemedia.de") {
-#		return (pipe);
-#	}
-
 	# see http://www.varnish-cache.org/trac/wiki/VCLExampleNormalizeAcceptEncoding
 	### parse accept encoding rulesets to normalize
 	if (req.http.Accept-Encoding) {
@@ -58,7 +54,8 @@ sub vcl_recv {
 		req.request != "POST" &&
 		req.request != "TRACE" &&
 		req.request != "OPTIONS" &&
-		req.request != "DELETE") {
+        req.request != "DELETE" &&
+		req.request != "PURGE") {
 		/* Non-RFC2616 or CONNECT which is weird. */
 		return (pipe);
 	}
@@ -70,12 +67,12 @@ sub vcl_recv {
 	}
 
 	# Force lookup if the request is a no-cache request from the client.
-	if (req.http.Cache-Control ~ "no-cache") {
+	if (req.http.Cache-Control ~ "no-cache" && req.http.X-Requested-With != "XMLHttpRequest") {
 		if (client.ip ~ cache_acl) {
 			purge_url(req.url);
 			error 200 "Purged.";
 		} else {
-			error 405 "Not allowed.";
+			set req.http.Cache-Control = "Public";
 		}
 	}
 
