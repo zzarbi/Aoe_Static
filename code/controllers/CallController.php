@@ -46,7 +46,19 @@ class Aoe_Static_CallController extends Mage_Core_Controller_Front_Action {
 				}
 			}
 		}
+		
+		// Additional Javascript
+		$response['code']['someUniqueValue'] = $this->_getAdditionalJS();
+		//$response['code']['someUniqueValue2'] = 'OtherJS';
+		
 		$this->getResponse()->setBody(Zend_Json::encode($response));
 	}
-
+	
+	/**
+	 * Return additional javascript
+	 * @return string
+	 */
+	protected function _getAdditionalJS(){
+		return 'alert("Additional Javascript")';
+	}
 }

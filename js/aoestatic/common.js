@@ -41,13 +41,15 @@ jQuery(document).ready(function($) {
 			AJAXHOME_URL,
 			data,
 			function (response) {
+				// Replace placeholder
 				for(var id in response.blocks) {
 					$('#' + id).html(response.blocks[id]);
 				}
-				// inject session if (TODO: check if this is really needed)
-				// $.cookie('frontend', response.sid, { path: '/' });
 				
-				// TODO: trigger event
+				// Run addistion javascript
+				for(var id in response.code) {
+					eval(response.code[id]);
+				}
 			},
 			'json'
 		);
